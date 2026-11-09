@@ -1,0 +1,33 @@
+:root{--bg:#151515;--card:#211F1D;--ink:#F7F3EE;--sub:#B5AFA8;--line:#34302C;--acc:#F07900;--accL:#F8A145;--deep:#D35100}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--accL)}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px}
+header.top{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:700;font-size:20px}
+.brand img{width:40px;height:40px;border-radius:10px}
+nav a{color:var(--sub);text-decoration:none;margin-left:18px;font-size:15px}
+nav a:hover{color:var(--ink)}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;padding:40px 0 56px}
+.hero h1{font-size:clamp(38px,6vw,60px);line-height:1.05;margin:0 0 14px;letter-spacing:-.02em}
+.hero h1 span{color:var(--accL)}
+.hero p.lead{font-size:19px;color:var(--sub);margin:0 0 24px;max-width:34em}
+.hero img{width:100%;max-width:340px;justify-self:center}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-weight:600;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding-bottom:56px}
+.card{background:var(--card);border-radius:18px;padding:22px}
+.card h3{margin:0 0 6px;font-size:18px}
+.card p{margin:0;color:var(--sub);font-size:16px}
+.how{padding:8px 0 56px}
+.how h2,.doc h1{font-size:30px;margin:0 0 16px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step b{display:block;color:var(--accL);font-size:14px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+.step p{margin:0;color:var(--sub)}
+.doc{padding:24px 0 56px;max-width:720px}
+.doc h2{font-size:19px;margin:28px 0 6px}
+.doc p,.doc li{color:#E4DED7;font-size:16px}
+.doc em{color:var(--sub)}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--sub);font-size:14px}
+footer a{color:var(--sub);margin-right:16px}
+footer p{margin:10px 0 0;max-width:46em}
+@media (max-width:720px){.hero{grid-template-columns:1fr;padding-top:16px}.hero img{max-width:220px;grid-row:1}.grid,.steps{grid-template-columns:1fr}nav a{margin-left:12px}}
