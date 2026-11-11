@@ -19,6 +19,7 @@
 <link rel="apple-touch-icon" href="assets/icon.png">
 <meta name="theme-color" content="#151515">
 <link rel="icon" href="assets/icon.png">
+<script>document.documentElement.classList.add("js")</script>
 <style>
 :root{
   --bg:#151515; --bg2:#1B1A19; --card:#211F1D; --card2:#2A2725; --line:#34302C;
@@ -183,6 +184,54 @@ footer a:hover{color:var(--ink)}
   .watch{left:calc(50% - 150px);width:110px}
   .band{width:82px}
 }
+
+/* Motion: sections rise into place, and the drawings draw themselves */
+.js [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.js [data-reveal].in{opacity:1;transform:none}
+.js .art .grow{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(.04);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .in .art .grow{transform:none}
+.js .art .draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s ease .2s}
+.js .in .art .draw{stroke-dashoffset:0}
+.js .art .pop{transform-box:fill-box;transform-origin:center;transform:scale(.5);opacity:0;transition:transform .5s cubic-bezier(.3,1.6,.5,1) .9s,opacity .3s ease .9s}
+.js .in .art .pop{transform:none;opacity:1}
+.js .art .fade{opacity:0;transition:opacity .7s ease .5s}
+.js .in .art .fade{opacity:1}
+.beat{transform-box:fill-box;transform-origin:center;animation:beat 1.1s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.18)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+.watch{animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -8px}}
+
+/* Live numbers over the Watch screenshot */
+.screen{position:relative;container-type:inline-size}
+.live{position:absolute;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Rounded","SF Pro Display",system-ui,sans-serif;font-variant-numeric:tabular-nums;line-height:1;white-space:nowrap}
+.live-time{left:1%;top:22.4%;width:26%;height:8%;padding-left:1.1%;color:#F7A23C;font-size:6.9cqw;font-weight:600;display:flex;align-items:center}
+.live-hr{left:14.6%;top:36%;width:47.4%;height:22.5%;font-size:24.4cqw;font-weight:600;letter-spacing:-.005em;display:flex;align-items:center}
+
+/* Polish: hover lift and clear keyboard focus */
+.step-card,.pillar,.ethos-row,.compare div{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+@media (hover:hover){
+  .step-card:hover,.pillar:hover,.ethos-row:hover,.compare div:hover{transform:translateY(-4px);border-color:#4A4542;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+  .btn,.pill{transition:transform .2s ease,background .2s ease,border-color .2s ease}
+  .btn:hover,.pill:hover{transform:translateY(-1px)}
+}
+a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:999px}
+.brand:focus-visible,footer a:focus-visible,.top nav a:focus-visible{border-radius:6px}
+
+/* Pinned Join the beta bar on phones */
+.mobile-cta{display:none}
+@media (max-width:720px){
+  .mobile-cta{display:flex;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:20;align-items:center;gap:12px;padding:8px 8px 8px 18px;border-radius:999px;background:rgba(33,31,29,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 14px 34px rgba(0,0,0,.55);transform:translateY(160%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+  .mobile-cta.show{transform:none}
+  .mobile-cta span{flex:1;font-size:13px;line-height:1.3;color:var(--sub)}
+  .mobile-cta .btn{width:auto;min-height:48px;padding:0 22px;font-size:16px}
+  footer{padding-bottom:110px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .js [data-reveal],.js .art .grow,.js .art .draw,.js .art .pop,.js .art .fade{transition:none!important;transform:none!important;opacity:1!important;stroke-dashoffset:0!important}
+  .watch,.beat{animation:none}
+  .mobile-cta{transition:none}
+}
 </style>
 </head>
 <body>
@@ -206,26 +255,26 @@ footer a:hover{color:var(--ink)}
         <p class="eyebrow">Ruck like a tortoise. Slow, steady and strong.</p>
         <h1 id="hero-title">You do the walking. <span>Rucktoise does the planning.</span></h1>
         <p class="lead">Most fitness apps just log your workouts. Rucktoise is an Apple Watch coach that reads your recovery each morning, suggests what to carry today, and builds you up step by step, without wearing you down.</p>
-        <div class="cta-row">
+        <div class="cta-row" id="hero-cta">
           <a class="btn btn-primary" href="mailto:hello@rucktoise.com?subject=Join%20the%20Rucktoise%20beta&amp;body=Hi%2C%20I%27d%20like%20to%20join%20the%20Rucktoise%20beta.%20I%20have%20an%20iPhone%20and%20an%20Apple%20Watch.">Join the beta</a>
           <a class="btn btn-ghost" href="#how">See how it works</a>
         </div>
         <p class="note">Coming soon to the App Store. Requires iPhone and Apple Watch.</p>
       </div>
       <div class="devices" aria-label="Rucktoise on iPhone and Apple Watch">
-        <div class="phone"><img src="assets/screen-green.jpg" alt="Rucktoise on iPhone: Good to go, with 10 pounds for 20 minutes suggested for today" width="1100" height="2392"></div>
-        <div class="watch"><span class="band" aria-hidden="true"></span><div class="case"><span class="crown" aria-hidden="true"></span><span class="side-button" aria-hidden="true"></span><div class="face"><img src="assets/screen-watch-10lb.png" alt="A ruck on Apple Watch: heart rate 118 against a ceiling of 141, carrying 10 pounds, ten minutes in" width="396" height="484"></div></div></div>
+        <div class="phone"><img src="assets/screen-green.jpg" alt="Rucktoise on iPhone: Good to go, with 10 pounds for 20 minutes suggested for today" width="506" height="1100"></div>
+        <div class="watch"><span class="band" aria-hidden="true"></span><div class="case"><span class="crown" aria-hidden="true"></span><span class="side-button" aria-hidden="true"></span><div class="face"><div class="screen"><img src="assets/screen-watch-10lb.png" alt="A ruck on Apple Watch: heart rate 118 against a ceiling of 141, carrying 10 pounds, ten minutes in" width="396" height="484"><span class="live live-time" id="live-time" aria-hidden="true">10:11</span><span class="live live-hr" id="live-hr" aria-hidden="true">118</span></div></div></div></div>
       </div>
     </div>
   </section>
 
   <section class="section alt versus" aria-labelledby="versus-title">
     <div class="wrap">
-      <div>
+      <div data-reveal>
         <h2 id="versus-title">A tracker watches you. A coach guides you.</h2>
-        <p>Adding weight or distance too quickly can lead to burnout, sore joints and fatigue. Rucktoise takes out the guesswork. While you sleep, your Apple Watch records your night. When you wake, Rucktoise compares it with your own baseline and suggests a plan for the day: how much to carry, how long to walk, or whether to rest. It adapts to your life, so you can build steadily.</p>
+        <p>Adding weight or distance too quickly can lead to burnout, sore joints, and fatigue. Rucktoise takes out the guesswork. While you sleep, your Apple Watch records your recovery data. When you wake, Rucktoise compares those metrics against your personal baseline and suggests a plan for the day: how much to carry, how long to walk, or whether to rest. It adapts to your life, so you can build steadily.</p>
       </div>
-      <div class="compare">
+      <div class="compare" data-reveal style="transition-delay:.12s">
         <div class="tracker"><b>A tracker</b><span>Records the walk you already did.</span></div>
         <div class="coach"><b>Rucktoise</b><span>Suggests today's walk from last night's recovery, then adjusts tomorrow's from how it went.</span></div>
       </div>
@@ -234,44 +283,44 @@ footer a:hover{color:var(--ink)}
 
   <section class="section" id="how" aria-labelledby="how-title">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <h2 id="how-title">Continuous guidance. Zero guesswork.</h2>
       </div>
       <ol class="cycle">
-        <li class="step">
+        <li class="step" data-reveal style="transition-delay:0.0s">
           <span class="step-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
           <div class="step-card">
             <span class="when">Overnight</span>
             <h3>Your night, measured</h3>
             <p>While you sleep, your Apple Watch records your resting heart rate, heart rate variability and sleep. Each morning, Rucktoise compares them with your own baseline.</p>
-            <div class="step-shot"><img src="assets/screen-info.jpg" alt="Rucktoise showing last night's heart rate variability, resting heart rate and sleep against the user's usual" loading="lazy"></div>
+            <div class="step-shot"><img src="assets/screen-info.jpg" width="506" height="1100" alt="Rucktoise showing last night's heart rate variability, resting heart rate and sleep against the user's usual" loading="lazy"></div>
           </div>
         </li>
-        <li class="step">
+        <li class="step" data-reveal style="transition-delay:0.1s">
           <span class="step-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span>
           <div class="step-card">
             <span class="when">Morning plan</span>
             <h3>Today's ruck, suggested</h3>
             <p>You wake up to a simple Green, Yellow or Red status and a plan for the day: the weight, the time, the terrain, and a heart-rate ceiling to stay under.</p>
-            <div class="step-shot"><img src="assets/screen-yellow.jpg" alt="A Yellow day in Rucktoise: 5 pounds for 20 minutes, eased from the usual 10 pounds" loading="lazy"></div>
+            <div class="step-shot"><img src="assets/screen-yellow.jpg" width="506" height="1100" alt="A Yellow day in Rucktoise: 5 pounds for 20 minutes, eased from the usual 10 pounds" loading="lazy"></div>
           </div>
         </li>
-        <li class="step">
+        <li class="step" data-reveal style="transition-delay:0.2s">
           <span class="step-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><polyline points="12 10 12 12 13 13"/><path d="m16.13 7.66-.81-4.05a2 2 0 0 0-2-1.61h-2.68a2 2 0 0 0-2 1.61l-.78 4.05"/><path d="m7.88 16.36.8 4a2 2 0 0 0 2 1.61h2.72a2 2 0 0 0 2-1.61l.81-4.05"/></svg></span>
           <div class="step-card">
             <span class="when">During your ruck</span>
             <h3>A tap when it matters</h3>
             <p>Your Watch shows your heart rate against today's ceiling. Go over it, and a tap on the wrist reminds you to ease off.</p>
-            <div class="step-shot watch-shot"><img src="assets/screen-watch-5lb.png" alt="Apple Watch during the same eased ruck: 5 pounds, heart rate 112 against a ceiling of 124" loading="lazy"></div>
+            <div class="step-shot watch-shot"><img src="assets/screen-watch-5lb.png" width="396" height="484" alt="Apple Watch during the same eased ruck: 5 pounds, heart rate 112 against a ceiling of 124" loading="lazy"></div>
           </div>
         </li>
-        <li class="step">
+        <li class="step" data-reveal style="transition-delay:0.3s">
           <span class="step-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span>
           <div class="step-card">
             <span class="when">After your ruck</span>
             <h3>Your plan adapts</h3>
             <p>You rate your effort and note any pain. Report pain, and your plan holds or steps the weight down automatically.</p>
-            <div class="step-shot"><img src="assets/screen-checkin.jpg" alt="The post-workout check-in: effort from 1 to 10, and any pain by body area" loading="lazy"></div>
+            <div class="step-shot"><img src="assets/screen-checkin.jpg" width="506" height="1100" alt="The post-workout check-in: effort from 1 to 10, and any pain by body area" loading="lazy"></div>
           </div>
         </li>
       </ol>
@@ -280,50 +329,43 @@ footer a:hover{color:var(--ink)}
 
   <section class="section alt" aria-labelledby="pillars-title">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <h2 id="pillars-title">Regain. Build. Retain.</h2>
         <p>Fitness in your 40s and 50s isn't about obstacle courses or boot camps. It's about a steady foundation for everyday life.</p>
       </div>
       <div class="pillars">
-        <article class="pillar">
+        <article class="pillar" data-reveal style="transition-delay:0.0s">
           <svg class="art" viewBox="0 0 320 150" role="img" aria-label="A gentle staircase: time builds first, then weight in small steps">
             <defs><linearGradient id="gStep" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#D35100"/><stop offset="1" stop-color="#F8A145"/></linearGradient></defs>
             <g fill="#3A3633">
               <rect x="28" y="104" width="34" height="18" rx="5"/><rect x="70" y="104" width="34" height="18" rx="5"/>
             </g>
             <rect x="28" y="104" width="76" height="18" rx="5" fill="none" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="4 4"/>
-            <rect x="112" y="92" width="34" height="30" rx="5" fill="url(#gStep)" opacity=".55"/>
-            <rect x="154" y="80" width="34" height="42" rx="5" fill="url(#gStep)" opacity=".7"/>
-            <rect x="196" y="66" width="34" height="56" rx="5" fill="url(#gStep)" opacity=".85"/>
-            <rect x="238" y="50" width="34" height="72" rx="5" fill="url(#gStep)"/>
-            <path d="M45 94 C110 92 160 70 255 38" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/>
-            <circle cx="255" cy="38" r="6" fill="#F8A145"/><circle cx="255" cy="38" r="12" fill="none" stroke="#F8A145" stroke-opacity=".35" stroke-width="2"/>
+            <rect class="grow" style="transition-delay:.15s" x="112" y="92" width="34" height="30" rx="5" fill="url(#gStep)" opacity=".55"/>
+            <rect class="grow" style="transition-delay:.3s" x="154" y="80" width="34" height="42" rx="5" fill="url(#gStep)" opacity=".7"/>
+            <rect class="grow" style="transition-delay:.45s" x="196" y="66" width="34" height="56" rx="5" fill="url(#gStep)" opacity=".85"/>
+            <rect class="grow" style="transition-delay:.6s" x="238" y="50" width="34" height="72" rx="5" fill="url(#gStep)"/>
+            <path class="fade" style="transition-delay:.8s" d="M45 94 C110 92 160 70 255 38" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/>
+            <g class="pop" style="transition-delay:1.1s"><circle cx="255" cy="38" r="6" fill="#F8A145"/><circle cx="255" cy="38" r="12" fill="none" stroke="#F8A145" stroke-opacity=".35" stroke-width="2"/></g>
             <text x="66" y="138" text-anchor="middle" fill="#B5AFA8" font-size="12">Time first</text>
             <text x="192" y="138" text-anchor="middle" fill="#B5AFA8" font-size="12">then weight, step by step</text>
           </svg>
           <div><h3>Regain your resilience</h3><p>Ease back into carrying weight. Time builds first, then weight, in small steps, as a lower-impact alternative to running.</p></div>
         </article>
-        <article class="pillar">
+        <article class="pillar" data-reveal style="transition-delay:0.1s">
           <svg class="art" viewBox="0 0 320 150" role="img" aria-label="Two steady weeks, then 5 more pounds is offered, only if you say yes">
             <g font-size="12" fill="#B5AFA8"><text x="24" y="56">Week 1</text><text x="24" y="96">Week 2</text></g>
-            <g fill="#F07900">
-              <circle cx="92" cy="52" r="10"/><circle cx="118" cy="52" r="10"/><circle cx="144" cy="52" r="10"/>
-              <circle cx="92" cy="92" r="10"/><circle cx="118" cy="92" r="10"/><circle cx="144" cy="92" r="10"/>
-            </g>
-            <g fill="none" stroke="#151515" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M87 52l3.5 3.5 6-7"/><path d="M113 52l3.5 3.5 6-7"/><path d="M139 52l3.5 3.5 6-7"/>
-              <path d="M87 92l3.5 3.5 6-7"/><path d="M113 92l3.5 3.5 6-7"/><path d="M139 92l3.5 3.5 6-7"/>
-            </g>
-            <path d="M166 72h30" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/>
+            <g class="pop" style="transition-delay:0.15s"><circle cx="92" cy="52" r="10" fill="#F07900"/><path d="M87 52l3.5 3.5 6-7" fill="none" stroke="#151515" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="pop" style="transition-delay:0.27s"><circle cx="118" cy="52" r="10" fill="#F07900"/><path d="M113 52l3.5 3.5 6-7" fill="none" stroke="#151515" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="pop" style="transition-delay:0.39s"><circle cx="144" cy="52" r="10" fill="#F07900"/><path d="M139 52l3.5 3.5 6-7" fill="none" stroke="#151515" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="pop" style="transition-delay:0.51s"><circle cx="92" cy="92" r="10" fill="#F07900"/><path d="M87 92l3.5 3.5 6-7" fill="none" stroke="#151515" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="pop" style="transition-delay:0.63s"><circle cx="118" cy="92" r="10" fill="#F07900"/><path d="M113 92l3.5 3.5 6-7" fill="none" stroke="#151515" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="pop" style="transition-delay:0.75s"><circle cx="144" cy="92" r="10" fill="#F07900"/><path d="M139 92l3.5 3.5 6-7" fill="none" stroke="#151515" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+            <g class="fade" style="transition-delay:.95s"><path d="M166 72h30" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/>
             <path d="M196 66l7 6-7 6" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <rect x="212" y="50" width="88" height="44" rx="22" fill="none" stroke="#F8A145" stroke-width="2"/>
-            <text x="256" y="78" text-anchor="middle" fill="#F7F3EE" font-size="17" font-weight="700">+5 lb</text>
-            <rect x="226" y="104" width="60" height="26" rx="13" fill="#F07900"/>
-            <text x="256" y="121.5" text-anchor="middle" fill="#151515" font-size="12.5" font-weight="700">Yes</text>
+            <text x="256" y="78" text-anchor="middle" fill="#F7F3EE" font-size="17" font-weight="700">+5 lb</text></g>
+            <g class="pop" style="transition-delay:1.35s"><rect x="226" y="104" width="60" height="26" rx="13" fill="#F07900"/>
+            <text x="256" y="121.5" text-anchor="middle" fill="#151515" font-size="12.5" font-weight="700">Yes</text></g>
           </svg>
           <div><h3>Build foundational strength</h3><p>Progress at a steady pace. More weight is offered only after two steady weeks, and only when you say yes.</p></div>
         </article>
-        <article class="pillar">
+        <article class="pillar" data-reveal style="transition-delay:0.2s">
           <svg class="art" viewBox="0 0 320 150" role="img" aria-label="A heart-rate line that stays under a dashed ceiling">
             <defs>
               <linearGradient id="gLine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#D35100"/><stop offset="1" stop-color="#F8A145"/></linearGradient>
@@ -331,15 +373,15 @@ footer a:hover{color:var(--ink)}
             </defs>
             <line x1="24" y1="44" x2="296" y2="44" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="6 5"/>
             <text x="296" y="34" text-anchor="end" fill="#F8A145" font-size="12" font-weight="600">Ceiling</text>
-            <path d="M24 26c0-3 2.4-5 5-5 1.8 0 3 1 3.6 2 .6-1 1.8-2 3.6-2 2.6 0 5 2 5 5 0 5.5-8.6 10-8.6 10S24 31.5 24 26Z" fill="#F07900"/>
-            <path d="M24 112 C46 108 58 86 80 82 S112 74 128 76 L138 76 L146 56 L154 92 L162 70 L172 74 C196 78 214 66 236 68 S272 74 296 66 L296 132 L24 132 Z" fill="url(#gFill)"/>
-            <path d="M24 112 C46 108 58 86 80 82 S112 74 128 76 L138 76 L146 56 L154 92 L162 70 L172 74 C196 78 214 66 236 68 S272 74 296 66" fill="none" stroke="url(#gLine)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="296" cy="66" r="5" fill="#F8A145"/>
+            <path class="beat" d="M24 26c0-3 2.4-5 5-5 1.8 0 3 1 3.6 2 .6-1 1.8-2 3.6-2 2.6 0 5 2 5 5 0 5.5-8.6 10-8.6 10S24 31.5 24 26Z" fill="#F07900"/>
+            <path d="M24 112 C46 108 58 86 80 82 S112 74 128 76 L138 76 L146 56 L154 92 L162 70 L172 74 C196 78 214 66 236 68 S272 74 296 66 L296 132 L24 132 Z" fill="url(#gFill)" class="fade" style="transition-delay:1.2s"/>
+            <path d="M24 112 C46 108 58 86 80 82 S112 74 128 76 L138 76 L146 56 L154 92 L162 70 L172 74 C196 78 214 66 236 68 S272 74 296 66" pathLength="1" class="draw" fill="none" stroke="url(#gLine)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle class="pop" style="transition-delay:1.6s" cx="296" cy="66" r="5" fill="#F8A145"/>
           </svg>
           <div><h3>Retain your energy</h3><p>A heart-rate ceiling on every ruck, plus easy recovery days such as a light bike ride or an unloaded walk, helps keep you from overdoing it.</p></div>
         </article>
       </div>
-      <div class="privacy" aria-label="Private by default">
+      <div class="privacy" aria-label="Private by default" data-reveal>
         <span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>Your data stays on your iPhone and Watch</span>
         <span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21a8 8 0 0 1 11.87-7"/><circle cx="10" cy="8" r="5"/><path d="m17 17 5 5"/><path d="m22 17-5 5"/></svg>No account</span>
         <span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/><path d="m3 3 18 18"/></svg>No leaderboards</span>
@@ -349,30 +391,30 @@ footer a:hover{color:var(--ink)}
 
   <section class="section" id="ethos" aria-labelledby="ethos-title">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <p class="eyebrow">Ruck like a tortoise</p>
         <h2 id="ethos-title">The Tortoise Ethos</h2>
         <p>We believe in coaching. Rucktoise is designed as a supportive guide to help you regain, build and retain genuine functional fitness and strength.</p>
       </div>
       <div class="ethos">
-        <article class="ethos-row">
+        <article class="ethos-row" data-reveal>
           <div class="ethos-num" aria-hidden="true">1</div>
           <div><h3>No Streak Shaming</h3><p>Life happens. Planned rest days count as progress, and pausing your routine never results in a penalty.</p></div>
           <div class="ethos-art"><svg class="art" viewBox="0 0 260 150" role="img" aria-label="A week where rest days count as progress, with no streak"><text x="20" y="32" fill="#B5AFA8" font-size="12">This week</text><text x="26" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">M</text><circle cx="26" cy="88" r="13" fill="none" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M21 88l3.5 3.5 6-7" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="60" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">T</text><circle cx="60" cy="88" r="13" fill="#F07900"/><text x="94" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">W</text><circle cx="94" cy="88" r="13" fill="none" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M89 88l3.5 3.5 6-7" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="128" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">T</text><circle cx="128" cy="88" r="13" fill="#F07900"/><text x="162" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">F</text><circle cx="162" cy="88" r="13" fill="none" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M157 88l3.5 3.5 6-7" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="196" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">S</text><circle cx="196" cy="88" r="13" fill="#F07900"/><text x="230" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">S</text><circle cx="230" cy="88" r="13" fill="none" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M225 88l3.5 3.5 6-7" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="20" y="130" fill="#F8A145" font-size="12" font-weight="600">Rest days count too</text></svg></div>
         </article>
-        <article class="ethos-row">
+        <article class="ethos-row" data-reveal>
           <div class="ethos-num" aria-hidden="true">2</div>
           <div><h3>Listen to Your Body</h3><p>You report your effort and any discomfort after every session. If you need to step down the weight, Rucktoise automatically adjusts your plan.</p></div>
-          <div class="ethos-art"><svg class="art" viewBox="0 0 260 150" role="img" aria-label="The check-in after a ruck: effort from 1 to 10, and any pain by body area"><text x="20" y="30" fill="#B5AFA8" font-size="12">How hard did it feel?</text><rect x="20.0" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="29.5" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">1</text><rect x="42.4" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="51.9" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">2</text><rect x="64.8" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="74.3" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">3</text><rect x="87.2" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="96.7" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">4</text><rect x="109.6" y="42" width="19" height="24" rx="5" fill="#F07900"/><text x="119.1" y="58" text-anchor="middle" fill="#151515" font-size="10.5" font-weight="700">5</text><rect x="132.0" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="141.5" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">6</text><rect x="154.4" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="163.9" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">7</text><rect x="176.8" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="186.3" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">8</text><rect x="199.2" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="208.7" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">9</text><rect x="221.6" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="231.1" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">10</text><text x="20" y="92" fill="#B5AFA8" font-size="12">Any pain?</text><rect x="20" y="102" width="52" height="28" rx="14" fill="none" stroke="#4A4542" stroke-width="1.5"/><text x="46.0" y="120.5" text-anchor="middle" fill="#B5AFA8" font-size="12" font-weight="400">Feet</text><rect x="80" y="102" width="62" height="28" rx="14" fill="rgba(240,121,0,.15)" stroke="#F8A145" stroke-width="1.5"/><text x="111.0" y="120.5" text-anchor="middle" fill="#F8A145" font-size="12" font-weight="600">Knees</text><rect x="150" y="102" width="54" height="28" rx="14" fill="none" stroke="#4A4542" stroke-width="1.5"/><text x="177.0" y="120.5" text-anchor="middle" fill="#B5AFA8" font-size="12" font-weight="400">Back</text></svg></div>
+          <div class="ethos-art"><svg class="art" viewBox="0 0 260 150" role="img" aria-label="The check-in after a ruck: effort from 1 to 10, and any pain by body area"><text x="20" y="30" fill="#B5AFA8" font-size="12">How hard did it feel?</text><rect x="20.0" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="29.5" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">1</text><rect x="42.4" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="51.9" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">2</text><rect x="64.8" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="74.3" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">3</text><rect x="87.2" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="96.7" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">4</text><rect x="109.6" y="42" width="19" height="24" rx="5" fill="#F07900"/><text x="119.1" y="58" text-anchor="middle" fill="#151515" font-size="10.5" font-weight="700">5</text><rect x="132.0" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="141.5" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">6</text><rect x="154.4" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="163.9" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">7</text><rect x="176.8" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="186.3" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">8</text><rect x="199.2" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="208.7" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">9</text><rect x="221.6" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="231.1" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">10</text><text x="20" y="92" fill="#B5AFA8" font-size="12">Any pain?</text><rect x="20" y="102" width="52" height="28" rx="14" fill="none" stroke="#4A4542" stroke-width="1.5"/><text x="46.0" y="120.5" text-anchor="middle" fill="#B5AFA8" font-size="12" font-weight="400">Feet</text><g class="pop" style="transition-delay:.5s"><rect x="80" y="102" width="62" height="28" rx="14" fill="rgba(240,121,0,.15)" stroke="#F8A145" stroke-width="1.5"/><text x="111.0" y="120.5" text-anchor="middle" fill="#F8A145" font-size="12" font-weight="600">Knees</text></g><rect x="150" y="102" width="54" height="28" rx="14" fill="none" stroke="#4A4542" stroke-width="1.5"/><text x="177.0" y="120.5" text-anchor="middle" fill="#B5AFA8" font-size="12" font-weight="400">Back</text></svg></div>
         </article>
-        <article class="ethos-row">
+        <article class="ethos-row" data-reveal>
           <div class="ethos-num" aria-hidden="true">3</div>
           <div><h3>Conservative by Default</h3><p>When in doubt, the app suggests the easier path. The goal is to keep you moving comfortably and consistently for years to come.</p></div>
           <div class="ethos-art"><svg class="art" viewBox="0 0 260 150" role="img" aria-label="On an easier day, the lighter choice is selected over the usual weight">
 <text x="20" y="30" fill="#B5AFA8" font-size="12">Today's choice</text>
 <rect x="20" y="42" width="220" height="40" rx="20" fill="#F07900"/>
 <text x="44" y="67" fill="#151515" font-size="14" font-weight="700">Lighter · 5 lb</text>
-<circle cx="218" cy="62" r="10" fill="#151515"/><path d="M213 62l3.5 3.5 6-7" fill="none" stroke="#F8A145" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<g class="pop" style="transition-delay:.5s"><circle cx="218" cy="62" r="10" fill="#151515"/><path d="M213 62l3.5 3.5 6-7" fill="none" stroke="#F8A145" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>
 <rect x="20" y="94" width="220" height="40" rx="20" fill="none" stroke="#4A4542" stroke-width="1.5"/>
 <text x="44" y="119" fill="#B5AFA8" font-size="14">Usual · 10 lb</text>
 </svg></div>
@@ -382,8 +424,8 @@ footer a:hover{color:var(--ink)}
   </section>
 
   <section class="section final" id="get" aria-labelledby="final-title">
-    <div class="wrap">
-      <h2 id="final-title">Ready to carry the load?</h2>
+    <div class="wrap" data-reveal>
+      <h2 id="final-title">Ready to ruck on?</h2>
       <p>Join users discovering a smarter, simpler way to stay strong. Grab your pack, start your Apple Watch, and let Rucktoise guide your next step.</p>
       <a class="btn btn-primary" href="mailto:hello@rucktoise.com?subject=Join%20the%20Rucktoise%20beta&amp;body=Hi%2C%20I%27d%20like%20to%20join%20the%20Rucktoise%20beta.%20I%20have%20an%20iPhone%20and%20an%20Apple%20Watch.">Join the beta</a>
       <p class="note">Coming soon to the App Store. Requires iPhone and Apple Watch.</p>
@@ -407,5 +449,60 @@ footer a:hover{color:var(--ink)}
   </div>
 </footer>
 
+<div class="mobile-cta" id="mobile-cta"><span>Coming soon. Requires iPhone and Apple Watch.</span><a class="btn btn-primary" href="mailto:hello@rucktoise.com?subject=Join%20the%20Rucktoise%20beta&amp;body=Hi%2C%20I%27d%20like%20to%20join%20the%20Rucktoise%20beta.%20I%20have%20an%20iPhone%20and%20an%20Apple%20Watch." tabindex="-1">Join the beta</a></div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var io = "IntersectionObserver" in window;
+
+  // Sections rise into place as they scroll into view.
+  var items = document.querySelectorAll("[data-reveal]");
+  if (!io || reduce) {
+    items.forEach(function (el) { el.classList.add("in"); });
+  } else {
+    var reveal = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); reveal.unobserve(e.target); }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+    items.forEach(function (el) { reveal.observe(el); });
+  }
+
+  // The hero Watch: the timer counts up and the heart rate drifts gently near 118.
+  var t = document.getElementById("live-time"), hr = document.getElementById("live-hr");
+  if (t && hr) {
+    var secs = 611, bpm = 118, tick = 0;
+    setInterval(function () {
+      secs += 1;
+      t.textContent = Math.floor(secs / 60) + ":" + String(secs % 60).padStart(2, "0");
+      if (++tick % 3 === 0) {
+        bpm += Math.random() < 0.5 ? -1 : 1;
+        bpm = Math.max(116, Math.min(120, bpm));
+        hr.textContent = bpm;
+      }
+    }, 1000);
+  }
+
+  // On phones, keep Join the beta one tap away, except where a button is already on screen.
+  var bar = document.getElementById("mobile-cta");
+  var heroCta = document.getElementById("hero-cta"), finalCta = document.getElementById("get");
+  if (bar && io && heroCta && finalCta) {
+    var seen = new Map();
+    var watch = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { seen.set(e.target, e.isIntersecting); });
+      var show = !seen.get(heroCta) && !seen.get(finalCta) && window.scrollY > 200;
+      bar.classList.toggle("show", show);
+      bar.querySelector("a").tabIndex = show ? 0 : -1;
+    });
+    watch.observe(heroCta); watch.observe(finalCta);
+    window.addEventListener("scroll", function () {
+      var show = !seen.get(heroCta) && !seen.get(finalCta) && window.scrollY > 200;
+      bar.classList.toggle("show", show);
+      bar.querySelector("a").tabIndex = show ? 0 : -1;
+    }, { passive: true });
+  }
+})();
+</script>
 </body>
 </html>
