@@ -3,8 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rucktoise: Ruck like a tortoise</title>
-<meta name="description" content="You do the walking. Rucktoise does the planning. An Apple Watch coach that reads your recovery each morning, suggests what to carry today, and builds you up step by step.">
+<title>Rucktoise: Rucking and Weighted Vest Coach for Apple Watch</title>
+<meta name="description" content="You do the walking. Rucktoise does the planning. A rucking and weighted vest coach for iPhone and Apple Watch that reads your recovery each morning, suggests what to carry today, and builds you up step by step.">
+<link rel="canonical" href="https://rucktoise.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rucktoise.com/">
+<meta property="og:site_name" content="Rucktoise">
+<meta property="og:title" content="Rucktoise: You do the walking. Rucktoise does the planning.">
+<meta property="og:description" content="A rucking and weighted vest coach for iPhone and Apple Watch. It reads your recovery each morning and suggests what to carry today.">
+<meta property="og:image" content="https://rucktoise.com/assets/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Rucktoise on iPhone and Apple Watch, with the line: You do the walking. Rucktoise does the planning.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="assets/icon.png">
 <meta name="theme-color" content="#151515">
 <link rel="icon" href="assets/icon.png">
 <style>
@@ -27,6 +39,7 @@ h2{font-size:clamp(30px,4.4vw,44px)}
 .alt{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .section-head{text-align:center;max-width:740px;margin:0 auto 48px}
 .section-head p{color:var(--sub);font-size:18px;margin:14px 0 0}
+.section-head .eyebrow{color:var(--gold);font-size:17px;margin:0 0 12px}
 
 /* Header */
 .top{position:sticky;top:0;z-index:10;background:rgba(21,21,21,.86);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
@@ -43,7 +56,9 @@ h2{font-size:clamp(30px,4.4vw,44px)}
 .btn-primary{background:var(--orange);color:#151515}
 .btn-ghost{border:1.5px solid var(--sub);color:var(--ink)}
 .btn-ghost:hover{border-color:var(--ink)}
-.btn[aria-disabled="true"]{cursor:default}
+.btn-primary:hover{background:#FF8A14}
+.note{color:var(--sub);font-size:15px;margin:16px 0 0}
+.final .note{margin:16px auto 0}
 .btn svg{width:20px;height:20px;flex:none}
 
 /* Hero */
@@ -110,7 +125,7 @@ h2{font-size:clamp(30px,4.4vw,44px)}
 .ethos-row h3{font-size:24px;margin-bottom:8px}
 .ethos-row p{margin:0;color:var(--sub);font-size:17px}
 .ethos-art{display:flex;justify-content:center}
-.ethos-art img{width:160px}
+.ethos-art .art{margin:0}
 
 /* Final CTA + footer */
 .final{text-align:center;background:radial-gradient(700px 360px at 50% 100%,rgba(240,121,0,.25),transparent 70%),var(--bg2);border-top:1px solid var(--line)}
@@ -136,7 +151,8 @@ footer a:hover{color:var(--ink)}
   .versus .wrap{grid-template-columns:1fr;gap:32px}
   .pillars{grid-template-columns:1fr}
   .ethos-row{grid-template-columns:72px 1fr}
-  .ethos-art{display:none}
+  .ethos-art{grid-column:1/-1;justify-content:flex-start}
+  .ethos-art .art{max-width:360px}
 }
 @media (max-width:720px){
   .top nav a:not(.pill){display:none}
@@ -176,7 +192,7 @@ footer a:hover{color:var(--ink)}
       <a href="#how">How it works</a>
       <a href="#ethos">Our ethos</a>
       <a href="support.html">Support</a>
-      <a class="pill" href="#get">Coming soon</a>
+      <a class="pill" href="mailto:hello@rucktoise.com?subject=Join%20the%20Rucktoise%20beta&amp;body=Hi%2C%20I%27d%20like%20to%20join%20the%20Rucktoise%20beta.%20I%20have%20an%20iPhone%20and%20an%20Apple%20Watch.">Join the beta</a>
     </nav>
   </div>
 </header>
@@ -189,12 +205,10 @@ footer a:hover{color:var(--ink)}
         <h1 id="hero-title">You do the walking. <span>Rucktoise does the planning.</span></h1>
         <p class="lead">Most fitness apps just log your workouts. Rucktoise is an Apple Watch coach that reads your recovery each morning, suggests what to carry today, and builds you up step by step, without wearing you down.</p>
         <div class="cta-row">
-          <span class="btn btn-primary" role="link" aria-disabled="true">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.65.8-3.33.8-.7 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.1 8.79.74 1.06 1.61 2.25 2.75 2.2 1.11-.04 1.52-.71 2.86-.71 1.33 0 1.71.71 2.87.69 1.19-.02 1.94-1.07 2.66-2.14.85-1.23 1.19-2.43 1.21-2.49-.03-.01-2.31-.89-2.33-3.53ZM14.18 6.13c.6-.74 1.01-1.75.9-2.77-.87.04-1.94.59-2.56 1.32-.56.64-1.06 1.69-.92 2.68.97.08 1.97-.49 2.58-1.23Z"/></svg>
-            Coming soon to the App Store
-          </span>
+          <a class="btn btn-primary" href="mailto:hello@rucktoise.com?subject=Join%20the%20Rucktoise%20beta&amp;body=Hi%2C%20I%27d%20like%20to%20join%20the%20Rucktoise%20beta.%20I%20have%20an%20iPhone%20and%20an%20Apple%20Watch.">Join the beta</a>
           <a class="btn btn-ghost" href="#how">See how it works</a>
         </div>
+        <p class="note">Coming soon to the App Store. Requires iPhone and Apple Watch.</p>
       </div>
       <div class="devices" aria-label="Rucktoise on iPhone and Apple Watch">
         <div class="phone"><img src="assets/screen-green.jpg" alt="Rucktoise on iPhone: Good to go, with 10 pounds for 20 minutes suggested for today" width="1100" height="2392"></div>
@@ -342,17 +356,24 @@ footer a:hover{color:var(--ink)}
         <article class="ethos-row">
           <div class="ethos-num" aria-hidden="true">1</div>
           <div><h3>No Streak Shaming</h3><p>Life happens. Planned rest days count as progress, and pausing your routine never results in a penalty.</p></div>
-          <div class="ethos-art"><img src="assets/sprite-red.png" alt="" loading="lazy"></div>
+          <div class="ethos-art"><svg class="art" viewBox="0 0 260 150" role="img" aria-label="A week where rest days count as progress, with no streak"><text x="20" y="32" fill="#B5AFA8" font-size="12">This week</text><text x="26" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">M</text><circle cx="26" cy="88" r="13" fill="none" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M21 88l3.5 3.5 6-7" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="60" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">T</text><circle cx="60" cy="88" r="13" fill="#F07900"/><text x="94" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">W</text><circle cx="94" cy="88" r="13" fill="none" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M89 88l3.5 3.5 6-7" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="128" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">T</text><circle cx="128" cy="88" r="13" fill="#F07900"/><text x="162" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">F</text><circle cx="162" cy="88" r="13" fill="none" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M157 88l3.5 3.5 6-7" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="196" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">S</text><circle cx="196" cy="88" r="13" fill="#F07900"/><text x="230" y="62" text-anchor="middle" fill="#B5AFA8" font-size="11">S</text><circle cx="230" cy="88" r="13" fill="none" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M225 88l3.5 3.5 6-7" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="20" y="130" fill="#F8A145" font-size="12" font-weight="600">Rest days count too</text></svg></div>
         </article>
         <article class="ethos-row">
           <div class="ethos-num" aria-hidden="true">2</div>
           <div><h3>Listen to Your Body</h3><p>You report your effort and any discomfort after every session. If you need to step down the weight, Rucktoise automatically adjusts your plan.</p></div>
-          <div class="ethos-art"><img src="assets/sprite-swim.png" alt="" loading="lazy"></div>
+          <div class="ethos-art"><svg class="art" viewBox="0 0 260 150" role="img" aria-label="The check-in after a ruck: effort from 1 to 10, and any pain by body area"><text x="20" y="30" fill="#B5AFA8" font-size="12">How hard did it feel?</text><rect x="20.0" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="29.5" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">1</text><rect x="42.4" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="51.9" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">2</text><rect x="64.8" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="74.3" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">3</text><rect x="87.2" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="96.7" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">4</text><rect x="109.6" y="42" width="19" height="24" rx="5" fill="#F07900"/><text x="119.1" y="58" text-anchor="middle" fill="#151515" font-size="10.5" font-weight="700">5</text><rect x="132.0" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="141.5" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">6</text><rect x="154.4" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="163.9" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">7</text><rect x="176.8" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="186.3" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">8</text><rect x="199.2" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="208.7" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">9</text><rect x="221.6" y="42" width="19" height="24" rx="5" fill="#34302C"/><text x="231.1" y="58" text-anchor="middle" fill="#B5AFA8" font-size="10.5" font-weight="400">10</text><text x="20" y="92" fill="#B5AFA8" font-size="12">Any pain?</text><rect x="20" y="102" width="52" height="28" rx="14" fill="none" stroke="#4A4542" stroke-width="1.5"/><text x="46.0" y="120.5" text-anchor="middle" fill="#B5AFA8" font-size="12" font-weight="400">Feet</text><rect x="80" y="102" width="62" height="28" rx="14" fill="rgba(240,121,0,.15)" stroke="#F8A145" stroke-width="1.5"/><text x="111.0" y="120.5" text-anchor="middle" fill="#F8A145" font-size="12" font-weight="600">Knees</text><rect x="150" y="102" width="54" height="28" rx="14" fill="none" stroke="#4A4542" stroke-width="1.5"/><text x="177.0" y="120.5" text-anchor="middle" fill="#B5AFA8" font-size="12" font-weight="400">Back</text></svg></div>
         </article>
         <article class="ethos-row">
           <div class="ethos-num" aria-hidden="true">3</div>
           <div><h3>Conservative by Default</h3><p>When in doubt, the app suggests the easier path. The goal is to keep you moving comfortably and consistently for years to come.</p></div>
-          <div class="ethos-art"><img src="assets/sprite-treadmill.png" alt="" loading="lazy"></div>
+          <div class="ethos-art"><svg class="art" viewBox="0 0 260 150" role="img" aria-label="On an easier day, the lighter choice is selected over the usual weight">
+<text x="20" y="30" fill="#B5AFA8" font-size="12">Today's choice</text>
+<rect x="20" y="42" width="220" height="40" rx="20" fill="#F07900"/>
+<text x="44" y="67" fill="#151515" font-size="14" font-weight="700">Lighter · 5 lb</text>
+<circle cx="218" cy="62" r="10" fill="#151515"/><path d="M213 62l3.5 3.5 6-7" fill="none" stroke="#F8A145" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="20" y="94" width="220" height="40" rx="20" fill="none" stroke="#4A4542" stroke-width="1.5"/>
+<text x="44" y="119" fill="#B5AFA8" font-size="14">Usual · 10 lb</text>
+</svg></div>
         </article>
       </div>
     </div>
@@ -361,8 +382,9 @@ footer a:hover{color:var(--ink)}
   <section class="section final" id="get" aria-labelledby="final-title">
     <div class="wrap">
       <h2 id="final-title">Ready to carry the load?</h2>
-      <p>Join adults discovering a smarter, simpler way to stay strong. Grab your pack, start your Apple Watch, and let Rucktoise guide your next step.</p>
-      <span class="btn btn-primary" role="link" aria-disabled="true">Download Rucktoise: coming soon</span>
+      <p>Join users discovering a smarter, simpler way to stay strong. Grab your pack, start your Apple Watch, and let Rucktoise guide your next step.</p>
+      <a class="btn btn-primary" href="mailto:hello@rucktoise.com?subject=Join%20the%20Rucktoise%20beta&amp;body=Hi%2C%20I%27d%20like%20to%20join%20the%20Rucktoise%20beta.%20I%20have%20an%20iPhone%20and%20an%20Apple%20Watch.">Join the beta</a>
+      <p class="note">Coming soon to the App Store. Requires iPhone and Apple Watch.</p>
     </div>
   </section>
 </main>
