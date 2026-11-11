@@ -4,36 +4,285 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rucktoise: Ruck like a tortoise</title>
-<meta name="description" content="Rucktoise is a rucking and weighted-walk coach for iPhone and Apple Watch. Ruck like a tortoise: start light, build slowly.">
+<meta name="description" content="Rucktoise is the Apple Watch coach that turns a simple walk into a progressive strength and fitness routine. It tells you what to carry today, based on how your body is recovering.">
+<meta name="theme-color" content="#151515">
 <link rel="icon" href="assets/icon.png">
-<link rel="stylesheet" href="style.css">
+<style>
+:root{
+  --bg:#151515; --bg2:#1B1A19; --card:#211F1D; --card2:#2A2725; --line:#34302C;
+  --ink:#F7F3EE; --sub:#B5AFA8; --orange:#F07900; --gold:#F8A145; --deep:#D35100;
+  --radius:22px; --max:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--gold)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+.eyebrow{color:var(--gold);font-weight:600;font-size:17px;margin:0 0 12px}
+h1,h2,h3{letter-spacing:-.02em;line-height:1.1;margin:0}
+h2{font-size:clamp(30px,4.4vw,44px)}
+.section{padding:88px 0;scroll-margin-top:68px}
+.section-head{text-align:center;max-width:720px;margin:0 auto 48px}
+.section-head p{color:var(--sub);font-size:18px;margin:14px 0 0}
+
+/* Header */
+.top{position:sticky;top:0;z-index:10;background:rgba(21,21,21,.86);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:700;font-size:20px}
+.brand img{width:36px;height:36px;border-radius:9px}
+.top nav{display:flex;align-items:center;gap:24px}
+.top nav a{color:var(--sub);text-decoration:none;font-size:15px}
+.top nav a:hover{color:var(--ink)}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--gold);color:var(--gold)!important;font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 26px;border-radius:999px;font-weight:700;font-size:17px;text-decoration:none;border:0}
+.btn-primary{background:var(--orange);color:#151515}
+.btn-ghost{border:1.5px solid var(--sub);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn[aria-disabled="true"]{cursor:default}
+.btn svg{width:20px;height:20px;flex:none}
+.note{color:var(--sub);font-size:15px;margin:14px 0 0}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;background:radial-gradient(900px 520px at 78% 30%,rgba(240,121,0,.22),transparent 65%),linear-gradient(180deg,#1E1A17 0%,var(--bg) 100%)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding-top:72px;padding-bottom:88px}
+.hero h1{font-size:clamp(42px,5.6vw,66px);font-weight:800;margin-bottom:22px}
+.hero .lead{font-size:clamp(17px,1.6vw,20px);color:#E4DED7;margin:0 0 30px;max-width:33em}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.devices{position:relative;isolation:isolate;display:flex;justify-content:center;align-items:flex-end;min-height:600px;padding-left:90px}
+.phone{position:relative;width:270px;aspect-ratio:1206/2622;border-radius:44px;background:#0B0B0B;padding:9px;box-shadow:0 0 0 1.5px #3A3633,0 30px 80px rgba(0,0,0,.55)}
+.phone img{width:100%;height:100%;object-fit:cover;border-radius:36px}
+.watch{position:absolute;left:calc(50% - 200px);bottom:70px;width:164px;padding:14px;border-radius:52px;background:linear-gradient(145deg,#F8A145,#D35100);box-shadow:0 26px 60px rgba(0,0,0,.55)}
+.watch::before,.watch::after{content:"";position:absolute;left:50%;transform:translateX(-50%);width:104px;height:64px;background:linear-gradient(180deg,#E58A3A,#C9620F);z-index:-1}
+.watch::before{top:-52px;border-radius:24px 24px 6px 6px}
+.watch::after{bottom:-52px;border-radius:6px 6px 24px 24px}
+.watch .face{border-radius:40px;background:#000;padding:10px 6px;overflow:hidden}
+.watch img{width:100%;border-radius:26px}
+.crown{position:absolute;right:-9px;top:34%;width:10px;height:38px;border-radius:4px;background:#B85A12}
+
+/* Context */
+.context{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.context .wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:center}
+.context p{color:#E4DED7;font-size:18px;margin:18px 0 0}
+.context figure{margin:0;background:var(--card);border-radius:var(--radius);padding:32px;text-align:center}
+.context figure img{width:min(220px,70%);margin:0 auto}
+.context figcaption{color:var(--sub);font-size:15px;margin-top:14px}
+
+/* Feature cards */
+.features{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;display:flex;flex-direction:column;gap:14px;overflow:hidden}
+.card h3{font-size:24px}
+.card p{color:var(--sub);font-size:16.5px;margin:0}
+.card .visual{margin-top:auto;padding-top:10px}
+.shot{position:relative;height:300px;overflow:hidden;border-radius:28px 28px 0 0;margin:0 -30px -30px;padding:22px 30px 0;background:linear-gradient(180deg,var(--card2),var(--card))}
+.shot img{width:min(280px,100%);margin:0 auto;border-radius:30px 30px 0 0;box-shadow:0 0 0 7px #0B0B0B,0 0 0 8.5px #3A3633}
+.activities{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.activity{background:var(--card2);border-radius:16px;padding:14px 8px 12px;text-align:center;font-size:14px;color:var(--sub)}
+.activity img{width:100%;max-width:96px;aspect-ratio:1;object-fit:contain;margin:0 auto 6px}
+.private-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.private-list li{display:flex;align-items:center;gap:14px;background:var(--card2);border-radius:16px;padding:16px 18px;font-weight:600}
+.icon{width:24px;height:24px;flex:none;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Ethos */
+.ethos-intro{color:var(--sub)}
+.ethos{display:grid;gap:20px}
+.ethos-row{display:grid;grid-template-columns:96px 1fr 260px;gap:28px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px 32px}
+.ethos-num{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:rgba(240,121,0,.14);border:1.5px solid var(--orange);color:var(--gold);font-weight:800;font-size:26px}
+.ethos-row h3{font-size:24px;margin-bottom:8px}
+.ethos-row p{margin:0;color:var(--sub);font-size:17px}
+.ethos-art{display:flex;justify-content:center}
+.ethos-art img.sprite{width:160px}
+.ethos-art .mini{width:200px;height:200px;overflow:hidden;border-radius:24px 24px 0 0;align-self:end;margin-bottom:-28px}
+.ethos-art .mini img{border-radius:24px 24px 0 0;box-shadow:0 0 0 6px #0B0B0B}
+
+/* Final CTA + footer */
+.final{text-align:center;background:radial-gradient(700px 360px at 50% 100%,rgba(240,121,0,.25),transparent 70%),var(--bg2);border-top:1px solid var(--line)}
+.final p{color:#E4DED7;font-size:19px;max-width:34em;margin:16px auto 30px}
+footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--sub);font-size:14px}
+footer .wrap{display:grid;gap:16px}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;justify-content:space-between}
+.foot-links nav{display:flex;flex-wrap:wrap;gap:8px 22px}
+footer a{color:var(--sub)}
+footer a:hover{color:var(--ink)}
+.disclaimer{max-width:52em;margin:0}
+
+/* Responsive */
+@media (max-width:960px){
+  .hero .wrap{grid-template-columns:1fr;padding-top:48px;gap:56px}
+  .hero-copy{text-align:center}
+  .hero .lead{margin-left:auto;margin-right:auto}
+  .cta-row{justify-content:center}
+  .context .wrap{grid-template-columns:1fr;gap:32px}
+  .ethos-row{grid-template-columns:72px 1fr}
+  .ethos-art{display:none}
+}
+@media (max-width:720px){
+  .top nav a:not(.pill){display:none}
+  .section{padding:64px 0}
+  .features{grid-template-columns:1fr}
+  .devices{min-height:480px;padding-left:70px;margin-top:24px}
+  .phone{width:220px;border-radius:38px}
+  .phone img{border-radius:30px}
+  .watch{width:124px;left:calc(50% - 150px);bottom:56px;padding:10px;border-radius:38px}
+  .watch .face{border-radius:30px}
+  .watch::before,.watch::after{width:78px;height:48px}
+  .watch::before{top:-40px}.watch::after{bottom:-40px}
+  .card{padding:24px}
+  .shot{margin:0 -24px -24px;padding:20px 24px 0;height:260px}
+  .activities{grid-template-columns:repeat(2,1fr)}
+  .ethos-row{grid-template-columns:1fr;gap:14px;padding:24px}
+  .ethos-num{width:56px;height:56px;font-size:21px}
+  .btn{width:100%}
+}
+@media (max-width:380px){
+  .watch{left:calc(50% - 140px);width:112px}
+}
+</style>
 </head>
 <body>
-<div class="wrap">
-<header class="top"><a class="brand" href="index.html"><img src="assets/icon.png" alt="">Rucktoise</a><nav><a href="index.html#how">How it works</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a></nav></header>
-<section class="hero">
-<div>
-<h1>Ruck like a <span>tortoise.</span></h1>
-<p class="lead">Rucktoise is a rucking and weighted-walk coach for iPhone and Apple Watch. Each morning it reads your recovery and suggests one ruck: the weight, the time and the pace. Start light. Build slowly.</p>
-<span class="badge">Coming soon to the App Store</span>
-</div>
-<img src="assets/tortoise.png" alt="The Rucktoise tortoise, trotting with its shell">
-</section>
-<section class="grid">
-<div class="card"><h3>One ruck, suggested each morning</h3><p>Rucktoise compares last night's sleep, heart rate and recovery with your own usual, then suggests today's load and time. An easier day when you need one.</p></div>
-<div class="card"><h3>Weight goes up only when you say yes</h3><p>Time builds first, then weight, one small step at a time. Pain holds the plan, and an easier option is always there.</p></div>
-<div class="card"><h3>Live on your Apple Watch</h3><p>Start from your iPhone and the Watch shows your heart rate against today's ceiling, with a tap at halfway and gentle spoken cues through headphones.</p></div>
-<div class="card"><h3>Private by design</h3><p>No account and no server. Your health data stays on your iPhone, and nothing leaves it unless you choose to share it.</p></div>
-</section>
-<section class="how" id="how">
-<h2>How it works</h2>
-<div class="steps">
-<div class="step"><b>1. Set up</b><p>Tell Rucktoise about you, your experience and your week. It reads your Apple Health history to learn your usual.</p></div>
-<div class="step"><b>2. Ruck</b><p>Each morning, see today's suggestion. Start it from your iPhone, and your Apple Watch tracks the ruck.</p></div>
-<div class="step"><b>3. Build, slowly</b><p>Log how it felt. Rucktoise builds your time, then offers more weight when you've had steady weeks.</p></div>
-</div>
-</section>
-<footer><a href="support.html">Support</a><a href="privacy.html">Privacy policy</a><p>Rucktoise is for general fitness and informational purposes only. It is not a medical device, nor does it provide medical advice, diagnosis, or treatment. Always consult a qualified physician before starting a weighted rucking program.</p></footer>
-</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/icon.png" alt="">Rucktoise</a>
+    <nav aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#ethos">Our ethos</a>
+      <a href="support.html">Support</a>
+      <a class="pill" href="#get">Coming soon</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Ruck like a tortoise. Slow, steady and strong.</p>
+        <h1 id="hero-title">Build Foundation.<br>Not Fatigue.</h1>
+        <p class="lead">Rucktoise is the Apple Watch coach that turns a simple walk into a progressive strength and fitness routine. Designed for busy lives, it tells you exactly what to carry today so you can build steadily, week after week.</p>
+        <div class="cta-row">
+          <span class="btn btn-primary" role="link" aria-disabled="true">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.65.8-3.33.8-.7 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.1 8.79.74 1.06 1.61 2.25 2.75 2.2 1.11-.04 1.52-.71 2.86-.71 1.33 0 1.71.71 2.87.69 1.19-.02 1.94-1.07 2.66-2.14.85-1.23 1.19-2.43 1.21-2.49-.03-.01-2.31-.89-2.33-3.53ZM14.18 6.13c.6-.74 1.01-1.75.9-2.77-.87.04-1.94.59-2.56 1.32-.56.64-1.06 1.69-.92 2.68.97.08 1.97-.49 2.58-1.23Z"/></svg>
+            Coming soon to the App Store
+          </span>
+          <a class="btn btn-ghost" href="#features">See how it works</a>
+        </div>
+      </div>
+      <div class="devices" aria-label="Rucktoise on iPhone and Apple Watch">
+        <div class="phone"><img src="assets/screen-green.jpg" alt="Rucktoise on iPhone: Good to go, with 10 pounds for 20 minutes suggested for today" width="1100" height="2392"></div>
+        <div class="watch"><span class="crown" aria-hidden="true"></span><div class="face"><img src="assets/screen-watch.png" alt="A ruck on Apple Watch: heart rate 118 against a ceiling of 124, carrying 20 pounds" width="396" height="484"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section context" aria-labelledby="context-title">
+    <div class="wrap">
+      <div>
+        <h2 id="context-title">Fitness that fits your life, on your schedule.</h2>
+        <p>Balancing a demanding career, running a household, and raising a growing family leaves little time for a two-hour gym commute. You want to rebuild your foundational strength and endurance, but high-impact workouts often lead to burnout or joint strain.</p>
+        <p>Rucking, simply walking with a weighted pack or vest, is one of the most accessible, time-efficient ways to build cardiovascular health and physical resilience. But without a plan, it is easy to start too heavy and progress too fast. Rucktoise removes the guesswork, giving you a daily, personalized plan based on how your body is recovering.</p>
+      </div>
+      <figure>
+        <img src="assets/tortoise.png" alt="The Rucktoise tortoise, carrying its shell">
+        <figcaption>The shell is the load. Start light, build slowly.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="features-title">Your Daily Path to Steady Strength</h2>
+      </div>
+      <div class="features">
+        <article class="card">
+          <h3>Readiness-Driven Daily Plans</h3>
+          <p>Every morning, Rucktoise reads your overnight Apple Watch data, including sleep duration, resting heart rate, and HRV. It analyzes your recovery and suggests a specific load, duration, and pace for your ruck.</p>
+          <div class="visual shot"><img src="assets/screen-yellow.jpg" alt="An easier day in Rucktoise: eased from 10 pounds to 5 because of lower HRV and short sleep" loading="lazy"></div>
+        </article>
+        <article class="card">
+          <h3>Steady, Gradual Progression</h3>
+          <p>We prioritize steady adaptation. The engine gradually increases your load and distance over time, ensuring your body has time to adapt. You are always in control, and the app never suggests more than its rules allow.</p>
+          <div class="visual shot"><img src="assets/screen-progress.jpg" alt="The Rucktoise load path: a staircase of weights, building time at 10 pounds before the next step" loading="lazy"></div>
+        </article>
+        <article class="card">
+          <h3>Fits Your Existing Routine</h3>
+          <p>Rucking leads, but your other activities support it. On non-ruck days, Rucktoise suggests simple aerobic base or recovery sessions using activities you already enjoy, like a low-impact indoor cycling ride or an unloaded walk around the neighborhood.</p>
+          <div class="visual activities">
+            <div class="activity"><img src="assets/sprite-bike.png" alt="" loading="lazy">Cycling</div>
+            <div class="activity"><img src="assets/sprite-treadmill.png" alt="" loading="lazy">Treadmill</div>
+            <div class="activity"><img src="assets/sprite-hike.png" alt="" loading="lazy">Hiking</div>
+            <div class="activity"><img src="assets/sprite-swim.png" alt="" loading="lazy">Swimming</div>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Private by Default</h3>
+          <p>Your health data stays on your iPhone and Apple Watch. There are no accounts to create, no servers storing your metrics, and no leaderboards to chase. Just you and your progress.</p>
+          <ul class="visual private-list">
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>Stays on your iPhone and Watch</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21a8 8 0 0 1 11.87-7"/><circle cx="10" cy="8" r="5"/><path d="m17 17 5 5"/><path d="m22 17-5 5"/></svg>No account to create</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m2 2 20 20"/><path d="M5.78 5.78A7 7 0 0 0 9 19h8.5a4.5 4.5 0 0 0 1.31-.2"/><path d="M21.53 15.32A4.5 4.5 0 0 0 17.5 10h-1.79A7 7 0 0 0 9.69 5.04"/></svg>No server storing your metrics</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/><path d="m3 3 18 18"/></svg>No leaderboards to chase</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section context" id="ethos" aria-labelledby="ethos-title">
+    <div class="wrap" style="display:block">
+      <div class="section-head">
+        <p class="eyebrow">Ruck like a tortoise</p>
+        <h2 id="ethos-title">The Tortoise Ethos</h2>
+        <p class="ethos-intro">We believe in coaching, not clinics. Rucktoise is designed as a supportive guide to help you discover the benefits of load carriage.</p>
+      </div>
+      <div class="ethos">
+        <article class="ethos-row">
+          <div class="ethos-num" aria-hidden="true">1</div>
+          <div><h3>No Streak Shaming</h3><p>Life happens. Planned rest days count as progress, and pausing your routine never results in a penalty.</p></div>
+          <div class="ethos-art"><img class="sprite" src="assets/sprite-red.png" alt="" loading="lazy"></div>
+        </article>
+        <article class="ethos-row">
+          <div class="ethos-num" aria-hidden="true">2</div>
+          <div><h3>Listen to Your Body</h3><p>You report your effort and any discomfort after every session. If you need to step down the weight, Rucktoise automatically adjusts your plan.</p></div>
+          <div class="ethos-art"><div class="mini"><img src="assets/screen-checkin.jpg" alt="" loading="lazy"></div></div>
+        </article>
+        <article class="ethos-row">
+          <div class="ethos-num" aria-hidden="true">3</div>
+          <div><h3>Conservative by Default</h3><p>When in doubt, the app suggests the easier path. The goal is to keep you moving comfortably and consistently for years to come.</p></div>
+          <div class="ethos-art"><img class="sprite" src="assets/sprite-yellow.png" alt="" loading="lazy"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section final" id="get" aria-labelledby="final-title">
+    <div class="wrap">
+      <h2 id="final-title">Ready to carry the load?</h2>
+      <p>Join adults discovering a smarter, simpler way to stay strong. Grab your pack, start your Apple Watch, and let Rucktoise guide your next step.</p>
+      <span class="btn btn-primary" role="link" aria-disabled="true">Download Rucktoise: coming soon</span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <span>&copy; 2026 Rucktoise</span>
+      <nav aria-label="Footer">
+        <a href="#features">Features</a>
+        <a href="#ethos">Our ethos</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="mailto:hello@rucktoise.com">hello@rucktoise.com</a>
+      </nav>
+    </div>
+    <p class="disclaimer">This app is for general fitness and informational purposes only. It is not a medical device, nor does it provide medical advice, diagnosis, or treatment. Always consult a qualified physician before starting a weighted rucking program.</p>
+  </div>
+</footer>
+
 </body>
 </html>
