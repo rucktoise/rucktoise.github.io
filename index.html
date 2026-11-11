@@ -227,6 +227,18 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:
   footer{padding-bottom:110px}
 }
 
+/* Take it outside */
+.outside .wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
+.outside p{color:#E4DED7;font-size:18px;margin:18px 0 0;max-width:30em}
+.scene{margin:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.scene svg{display:block;width:100%;height:auto}
+.js .scene .trail{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.2s ease .3s}
+.js .scene.in .trail{stroke-dashoffset:0}
+.js .scene .sun{transform-box:fill-box;transform-origin:center;transform:translateY(26px);transition:transform 2s cubic-bezier(.2,.7,.2,1)}
+.js .scene.in .sun{transform:none}
+@media (max-width:960px){.outside .wrap{grid-template-columns:1fr;gap:32px}}
+@media (prefers-reduced-motion:reduce){.js .scene .trail,.js .scene .sun{transition:none!important;transform:none!important;stroke-dashoffset:0!important}}
+
 @media (prefers-reduced-motion:reduce){
   .js [data-reveal],.js .art .grow,.js .art .draw,.js .art .pop,.js .art .fade{transition:none!important;transform:none!important;opacity:1!important;stroke-dashoffset:0!important}
   .watch,.beat{animation:none}
@@ -331,7 +343,7 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:
     <div class="wrap">
       <div class="section-head" data-reveal>
         <h2 id="pillars-title">Regain. Build. Retain.</h2>
-        <p>Fitness in your 40s and 50s isn't about obstacle courses or boot camps. It's about a steady foundation for everyday life.</p>
+        <p>Fitness for busy lives isn't about obstacle courses or boot camps. It's about a steady foundation for everyday life.</p>
       </div>
       <div class="pillars">
         <article class="pillar" data-reveal style="transition-delay:0.0s">
@@ -389,7 +401,33 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:
     </div>
   </section>
 
-  <section class="section" id="ethos" aria-labelledby="ethos-title">
+  <section class="section outside" aria-labelledby="outside-title">
+    <div class="wrap">
+      <div data-reveal>
+        <h2 id="outside-title">Take it outside.</h2>
+        <p>No gym membership, no commute, no leaderboard to chase. Just you, your pack and the path ahead. Rucking gets you walking outdoors, where fresh air and time in nature can help you clear your head while you build your fitness.</p>
+      </div>
+      <figure class="scene" data-reveal style="transition-delay:.12s">
+        <svg viewBox="0 0 560 340" role="img" aria-label="A trail winding over hills toward a rising sun">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#161311"/><stop offset=".62" stop-color="#3A1F0C"/><stop offset="1" stop-color="#7A3A0A"/></linearGradient>
+            <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#F8A145" stop-opacity=".55"/><stop offset="1" stop-color="#F8A145" stop-opacity="0"/></radialGradient>
+            <linearGradient id="trailG" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#F8A145"/><stop offset="1" stop-color="#F8A145" stop-opacity=".25"/></linearGradient>
+          </defs>
+          <rect width="560" height="340" fill="url(#sky)"/>
+          <g class="sun"><circle cx="372" cy="196" r="120" fill="url(#glow)"/><circle cx="372" cy="196" r="42" fill="#F8A145"/></g>
+          <path d="M0 214 C70 190 130 196 190 206 S300 182 360 196 S470 214 560 190 V340 H0 Z" fill="#4A2810"/>
+          <path d="M0 246 C90 222 170 236 250 228 S400 214 470 230 S540 238 560 232 V340 H0 Z" fill="#2E1F15"/>
+          <g fill="#1F1712"><path d="M92 236l9-24 9 24z"/><path d="M106 238l7-19 7 19z"/><path d="M430 226l10-26 10 26z"/><path d="M447 228l7-18 7 18z"/></g>
+          <path d="M0 286 C120 262 220 278 300 270 S470 258 560 268 V340 H0 Z" fill="#1A1512"/>
+          <path class="trail" pathLength="1" d="M226 340 C250 312 300 300 318 284 S300 258 330 246 S360 226 368 214" fill="none" stroke="url(#trailG)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1"/>
+          <g fill="#F8A145" opacity=".9"><circle cx="70" cy="70" r="1.4"/><circle cx="150" cy="40" r="1"/><circle cx="480" cy="56" r="1.2"/><circle cx="250" cy="88" r="1"/><circle cx="520" cy="110" r="1"/></g>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section alt" id="ethos" aria-labelledby="ethos-title">
     <div class="wrap">
       <div class="section-head" data-reveal>
         <p class="eyebrow">Ruck like a tortoise</p>
