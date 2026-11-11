@@ -56,13 +56,13 @@ h2{font-size:clamp(30px,4.4vw,44px)}
 .devices{position:relative;isolation:isolate;display:flex;justify-content:center;align-items:flex-end;min-height:600px;padding-left:90px}
 .phone{position:relative;width:270px;aspect-ratio:1206/2622;border-radius:44px;background:#0B0B0B;padding:9px;box-shadow:0 0 0 1.5px #3A3633,0 30px 80px rgba(0,0,0,.55)}
 .phone img{width:100%;height:100%;object-fit:cover;border-radius:36px}
-.watch{position:absolute;left:calc(50% - 200px);bottom:70px;width:164px;padding:14px;border-radius:52px;background:linear-gradient(145deg,#F8A145,#D35100);box-shadow:0 26px 60px rgba(0,0,0,.55)}
-.watch::before,.watch::after{content:"";position:absolute;left:50%;transform:translateX(-50%);width:104px;height:64px;background:linear-gradient(180deg,#E58A3A,#C9620F);z-index:-1}
-.watch::before{top:-52px;border-radius:24px 24px 6px 6px}
-.watch::after{bottom:-52px;border-radius:6px 6px 24px 24px}
-.watch .face{border-radius:40px;background:#000;padding:10px 6px;overflow:hidden}
-.watch img{width:100%;border-radius:26px}
-.crown{position:absolute;right:-9px;top:34%;width:10px;height:38px;border-radius:4px;background:#B85A12}
+.watch{position:absolute;z-index:2;left:calc(50% - 232px);bottom:96px;width:156px}
+.band{position:absolute;left:50%;transform:translateX(-50%);top:-88px;bottom:-88px;width:118px;border-radius:30px;background:linear-gradient(90deg,#B9550B,#F07900 16%,#F8A145 50%,#F07900 84%,#B9550B);-webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent)}
+.case{position:relative;padding:8px;border-radius:46px;background:linear-gradient(145deg,#4A4A4D,#232325 45%,#141415);box-shadow:inset 0 0 0 1.5px #5C5C60,0 28px 60px rgba(0,0,0,.6)}
+.watch .face{border-radius:38px;background:#000;padding:12px 7px;overflow:hidden}
+.watch img{width:100%;border-radius:24px}
+.crown{position:absolute;right:-7px;top:24%;width:9px;height:30px;border-radius:4px;background:linear-gradient(90deg,#2A2A2C,#6A6A6E 60%,#3A3A3C);box-shadow:inset 0 0 0 1px #1A1A1B}
+.side-button{position:absolute;right:-4px;top:52%;width:5px;height:38px;border-radius:3px;background:linear-gradient(90deg,#2A2A2C,#55555A)}
 
 /* Tracker vs coach */
 .versus .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:center}
@@ -93,7 +93,8 @@ h2{font-size:clamp(30px,4.4vw,44px)}
 /* Regain Retain Build */
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .pillar{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;gap:12px}
-.pillar img{width:120px;margin-bottom:6px}
+.art{width:100%;height:auto;display:block;border-radius:16px;background:radial-gradient(120% 90% at 50% 100%,rgba(240,121,0,.14),transparent 70%),var(--card2);margin-bottom:8px}
+.art text{font-family:inherit}
 .pillar h3{font-size:22px}
 .pillar p{color:var(--sub);font-size:16.5px;margin:0}
 
@@ -134,9 +135,6 @@ footer a:hover{color:var(--ink)}
   .cta-row{justify-content:center}
   .versus .wrap{grid-template-columns:1fr;gap:32px}
   .pillars{grid-template-columns:1fr}
-  .pillar{flex-direction:row;flex-wrap:wrap;align-items:center}
-  .pillar img{width:96px;margin:0}
-  .pillar div{flex:1;min-width:220px}
   .ethos-row{grid-template-columns:72px 1fr}
   .ethos-art{display:none}
 }
@@ -146,10 +144,13 @@ footer a:hover{color:var(--ink)}
   .devices{min-height:480px;padding-left:70px;margin-top:24px}
   .phone{width:220px;border-radius:38px}
   .phone img{border-radius:30px}
-  .watch{width:124px;left:calc(50% - 150px);bottom:56px;padding:10px;border-radius:38px}
-  .watch .face{border-radius:30px}
-  .watch::before,.watch::after{width:78px;height:48px}
-  .watch::before{top:-40px}.watch::after{bottom:-40px}
+  .watch{width:122px;left:calc(50% - 168px);bottom:76px}
+  .band{width:92px;top:-68px;bottom:-68px;border-radius:24px}
+  .case{padding:6px;border-radius:36px}
+  .watch .face{border-radius:30px;padding:9px 5px}
+  .watch img{border-radius:18px}
+  .crown{right:-6px;width:7px;height:24px}
+  .side-button{height:30px}
   .cycle{grid-template-columns:1fr}
   .step-dot{margin:0}
   .step{flex-direction:row;align-items:flex-start}
@@ -161,7 +162,8 @@ footer a:hover{color:var(--ink)}
   .btn{width:100%}
 }
 @media (max-width:380px){
-  .watch{left:calc(50% - 140px);width:112px}
+  .watch{left:calc(50% - 150px);width:110px}
+  .band{width:84px}
 }
 </style>
 </head>
@@ -196,7 +198,7 @@ footer a:hover{color:var(--ink)}
       </div>
       <div class="devices" aria-label="Rucktoise on iPhone and Apple Watch">
         <div class="phone"><img src="assets/screen-green.jpg" alt="Rucktoise on iPhone: Good to go, with 10 pounds for 20 minutes suggested for today" width="1100" height="2392"></div>
-        <div class="watch"><span class="crown" aria-hidden="true"></span><div class="face"><img src="assets/screen-watch.png" alt="A ruck on Apple Watch: heart rate 118 against a ceiling of 124, carrying 20 pounds" width="396" height="484"></div></div>
+        <div class="watch"><span class="band" aria-hidden="true"></span><div class="case"><span class="crown" aria-hidden="true"></span><span class="side-button" aria-hidden="true"></span><div class="face"><img src="assets/screen-watch.png" alt="A ruck on Apple Watch: heart rate 118 against a ceiling of 124, carrying 20 pounds" width="396" height="484"></div></div></div>
       </div>
     </div>
   </section>
@@ -263,20 +265,61 @@ footer a:hover{color:var(--ink)}
   <section class="section alt" aria-labelledby="pillars-title">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="pillars-title">Regain. Retain. Build.</h2>
+        <h2 id="pillars-title">Regain. Build. Retain.</h2>
         <p>Fitness in your 40s and 50s isn't about obstacle courses or boot camps. It's about a steady foundation for everyday life.</p>
       </div>
       <div class="pillars">
         <article class="pillar">
-          <img src="assets/sprite-yellow.png" alt="" loading="lazy">
+          <svg class="art" viewBox="0 0 320 150" role="img" aria-label="A gentle staircase: time builds first, then weight in small steps">
+            <defs><linearGradient id="gStep" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#D35100"/><stop offset="1" stop-color="#F8A145"/></linearGradient></defs>
+            <g fill="#3A3633">
+              <rect x="28" y="104" width="34" height="18" rx="5"/><rect x="70" y="104" width="34" height="18" rx="5"/>
+            </g>
+            <rect x="28" y="104" width="76" height="18" rx="5" fill="none" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <rect x="112" y="92" width="34" height="30" rx="5" fill="url(#gStep)" opacity=".55"/>
+            <rect x="154" y="80" width="34" height="42" rx="5" fill="url(#gStep)" opacity=".7"/>
+            <rect x="196" y="66" width="34" height="56" rx="5" fill="url(#gStep)" opacity=".85"/>
+            <rect x="238" y="50" width="34" height="72" rx="5" fill="url(#gStep)"/>
+            <path d="M45 94 C110 92 160 70 255 38" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/>
+            <circle cx="255" cy="38" r="6" fill="#F8A145"/><circle cx="255" cy="38" r="12" fill="none" stroke="#F8A145" stroke-opacity=".35" stroke-width="2"/>
+            <text x="66" y="138" text-anchor="middle" fill="#B5AFA8" font-size="12">Time first</text>
+            <text x="192" y="138" text-anchor="middle" fill="#B5AFA8" font-size="12">then weight, step by step</text>
+          </svg>
           <div><h3>Regain your resilience</h3><p>Ease back into carrying weight. Time builds first, then weight, in small steps, as a lower-impact alternative to running.</p></div>
         </article>
         <article class="pillar">
-          <img src="assets/sprite-hike.png" alt="" loading="lazy">
+          <svg class="art" viewBox="0 0 320 150" role="img" aria-label="Two steady weeks, then 5 more pounds is offered, only if you say yes">
+            <g font-size="12" fill="#B5AFA8"><text x="24" y="56">Week 1</text><text x="24" y="96">Week 2</text></g>
+            <g fill="#F07900">
+              <circle cx="92" cy="52" r="10"/><circle cx="118" cy="52" r="10"/><circle cx="144" cy="52" r="10"/>
+              <circle cx="92" cy="92" r="10"/><circle cx="118" cy="92" r="10"/><circle cx="144" cy="92" r="10"/>
+            </g>
+            <g fill="none" stroke="#151515" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M87 52l3.5 3.5 6-7"/><path d="M113 52l3.5 3.5 6-7"/><path d="M139 52l3.5 3.5 6-7"/>
+              <path d="M87 92l3.5 3.5 6-7"/><path d="M113 92l3.5 3.5 6-7"/><path d="M139 92l3.5 3.5 6-7"/>
+            </g>
+            <path d="M166 72h30" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/>
+            <path d="M196 66l7 6-7 6" fill="none" stroke="#F8A145" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="212" y="50" width="88" height="44" rx="22" fill="none" stroke="#F8A145" stroke-width="2"/>
+            <text x="256" y="78" text-anchor="middle" fill="#F7F3EE" font-size="17" font-weight="700">+5 lb</text>
+            <rect x="226" y="104" width="60" height="26" rx="13" fill="#F07900"/>
+            <text x="256" y="121.5" text-anchor="middle" fill="#151515" font-size="12.5" font-weight="700">Yes</text>
+          </svg>
           <div><h3>Build foundational strength</h3><p>Progress at a steady pace. More weight is offered only after two steady weeks, and only when you say yes.</p></div>
         </article>
         <article class="pillar">
-          <img src="assets/sprite-bike.png" alt="" loading="lazy">
+          <svg class="art" viewBox="0 0 320 150" role="img" aria-label="A heart-rate line that stays under a dashed ceiling">
+            <defs>
+              <linearGradient id="gLine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#D35100"/><stop offset="1" stop-color="#F8A145"/></linearGradient>
+              <linearGradient id="gFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F07900" stop-opacity=".28"/><stop offset="1" stop-color="#F07900" stop-opacity="0"/></linearGradient>
+            </defs>
+            <line x1="24" y1="44" x2="296" y2="44" stroke="#F8A145" stroke-width="1.5" stroke-dasharray="6 5"/>
+            <text x="296" y="34" text-anchor="end" fill="#F8A145" font-size="12" font-weight="600">Ceiling</text>
+            <path d="M24 26c0-3 2.4-5 5-5 1.8 0 3 1 3.6 2 .6-1 1.8-2 3.6-2 2.6 0 5 2 5 5 0 5.5-8.6 10-8.6 10S24 31.5 24 26Z" fill="#F07900"/>
+            <path d="M24 112 C46 108 58 86 80 82 S112 74 128 76 L138 76 L146 56 L154 92 L162 70 L172 74 C196 78 214 66 236 68 S272 74 296 66 L296 132 L24 132 Z" fill="url(#gFill)"/>
+            <path d="M24 112 C46 108 58 86 80 82 S112 74 128 76 L138 76 L146 56 L154 92 L162 70 L172 74 C196 78 214 66 236 68 S272 74 296 66" fill="none" stroke="url(#gLine)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="296" cy="66" r="5" fill="#F8A145"/>
+          </svg>
           <div><h3>Retain your energy</h3><p>A heart-rate ceiling on every ruck, plus easy recovery days such as a light bike ride or an unloaded walk, helps keep you from overdoing it.</p></div>
         </article>
       </div>
@@ -293,7 +336,7 @@ footer a:hover{color:var(--ink)}
       <div class="section-head">
         <p class="eyebrow">Ruck like a tortoise</p>
         <h2 id="ethos-title">The Tortoise Ethos</h2>
-        <p>We believe in coaching, not clinics. Rucktoise is designed as a supportive guide to help you discover the benefits of load carriage.</p>
+        <p>We believe in coaching. Rucktoise is designed as a supportive guide to help you regain, build and retain genuine functional fitness and strength.</p>
       </div>
       <div class="ethos">
         <article class="ethos-row">
