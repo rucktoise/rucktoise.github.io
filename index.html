@@ -256,6 +256,22 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:
   .watch,.beat{animation:none}
   .mobile-cta{transition:none}
 }
+/* The section bar: on phones, every section one tap away (it scrolls sideways). */
+.top .jump{display:none}
+@media (max-width:720px){
+  .top .jump{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 16px 12px;-webkit-overflow-scrolling:touch}
+  .top .jump::-webkit-scrollbar{display:none}
+  .top nav.jump a{display:block;flex:none;color:var(--sub);text-decoration:none;font-size:15px;line-height:1;padding:12px 14px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
+  .top nav.jump a.on{color:#151515;background:var(--gold);border-color:var(--gold);font-weight:600}
+  .section,#why,#coach{scroll-margin-top:124px}
+}
+.top nav a.on{color:var(--ink)}
+@media (max-width:720px){
+  .gear.why{grid-template-columns:1fr 1fr;gap:12px}
+  .why .gear-card{padding:16px;gap:8px}
+  .why .gear-card h3{font-size:17px}
+  .why .gear-card p{font-size:15px}
+}
 </style>
 </head>
 <body>
@@ -264,12 +280,21 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:
   <div class="wrap">
     <a class="brand" href="index.html"><img src="assets/icon.png" alt="">Rucktoise</a>
     <nav aria-label="Main">
-      <a href="#how">How it works</a>
-      <a href="#ethos">Our ethos</a>
-      <a href="support.html">Support</a>
-      <a class="pill" href="mailto:hello@rucktoise.com?subject=Join%20the%20Rucktoise%20beta&amp;body=Hi%2C%20I%27d%20like%20to%20join%20the%20Rucktoise%20beta.%20I%20have%20an%20iPhone%20and%20an%20Apple%20Watch.">Join the beta</a>
-    </nav>
+<a href="#why">Why ruck</a>
+<a href="#how">How it works</a>
+<a href="#gear">What you need</a>
+<a href="#ethos">Our ethos</a>
+<a class="pill" href="mailto:hello@rucktoise.com?subject=Join%20the%20Rucktoise%20beta&amp;body=Hi%2C%20I%27d%20like%20to%20join%20the%20Rucktoise%20beta.%20I%20have%20an%20iPhone%20and%20an%20Apple%20Watch.">Join the beta</a>
+</nav>
   </div>
+<nav class="jump" aria-label="Sections">
+<a href="#why">Why ruck</a>
+<a href="#coach">The coach</a>
+<a href="#how">How it works</a>
+<a href="#gear">What you need</a>
+<a href="#ethos">Ethos</a>
+<a href="#get">Join the beta</a>
+</nav>
 </header>
 
 <main>
@@ -277,11 +302,11 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:
     <div class="wrap">
       <div class="hero-copy">
         <p class="eyebrow">Ruck like a tortoise. Slow, steady and strong.</p>
-        <h1 id="hero-title">You do the walking. <span>Rucktoise does the coaching.</span></h1>
-        <p class="lead">Most fitness apps just log your workouts. Rucktoise is an Apple Watch coach that reads your recovery each morning, suggests what to carry today, and builds you up step by step, without wearing you down.</p>
+        <h1 id="hero-title">It was just a walk. <span>And my workout is done.</span></h1>
+        <p class="lead">Rucking is walking with a little weight, in a backpack or a weighted vest. No gym, no running, no class. Rucktoise reads your recovery each morning and builds you up slowly, one step at a time.</p>
         <div class="cta-row" id="hero-cta">
           <a class="btn btn-primary" href="mailto:hello@rucktoise.com?subject=Join%20the%20Rucktoise%20beta&amp;body=Hi%2C%20I%27d%20like%20to%20join%20the%20Rucktoise%20beta.%20I%20have%20an%20iPhone%20and%20an%20Apple%20Watch.">Join the beta</a>
-          <a class="btn btn-ghost" href="#how">See how it works</a>
+          <a class="btn btn-ghost" href="#why">Why ruck?</a>
         </div>
         <p class="note">Coming soon to the App Store. Requires iPhone and Apple Watch.</p>
       </div>
@@ -292,10 +317,42 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:
     </div>
   </section>
 
-  <section class="section alt versus" aria-labelledby="versus-title">
+  <section class="section" id="why" aria-labelledby="why-title">
+<div class="wrap">
+<div class="section-head" data-reveal>
+<h2 id="why-title">A workout hiding in your walk.</h2>
+<p>Rucking is simple to start. Rucktoise makes it count, by telling you how much to carry, and when to add more.</p>
+</div>
+<div class="gear why">
+<article class="gear-card" data-reveal>
+<span class="gear-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+<h3>Fits into your day</h3>
+<p>A walk you'd take anyway: with the dog, on a call, or to the shops.</p>
+</article>
+<article class="gear-card" data-reveal style="transition-delay:.1s">
+<span class="gear-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="13" cy="4" r="2"/><path d="M10 22l2-7 3 3v4"/><path d="M8 12l2-4 4 1 2 3"/></svg></span>
+<h3>No running required</h3>
+<p>Steady walking at your own pace. No sprints, no intervals.</p>
+</article>
+<article class="gear-card" data-reveal style="transition-delay:.2s">
+<span class="gear-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v10l-7 4-7-4V7Z"/><path d="M12 12l7-5"/><path d="M12 12v9"/><path d="M12 12L5 7"/></svg></span>
+<h3>Strength and stamina, together</h3>
+<p>Carry a little weight and keep moving: one session for both.</p>
+</article>
+<article class="gear-card" data-reveal style="transition-delay:.3s">
+<span class="gear-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20l6-10 4 6 3-4 5 8Z"/><circle cx="17" cy="6" r="2"/></svg></span>
+<h3>Outside, not in a gym</h3>
+<p>Your street or a trail, with fresh air and nothing to book.</p>
+</article>
+</div>
+</div>
+</section>
+
+<section class="section alt versus" id="coach" aria-labelledby="versus-title">
     <div class="wrap">
       <div data-reveal>
-        <h2 id="versus-title">A tracker watches you. A coach guides you.</h2>
+        <p class="eyebrow">You do the walking. Rucktoise does the coaching.</p>
+<h2 id="versus-title">A tracker watches you. A coach guides you.</h2>
         <p>Adding weight or distance too quickly can lead to burnout, sore joints, and fatigue. Rucktoise takes out the guesswork. While you sleep, your Apple Watch records your recovery data. When you wake, Rucktoise compares those metrics against your personal baseline and suggests a plan for the day: how much to carry, how long to walk, or whether to rest. It adapts to your life, so you can build steadily.</p>
       </div>
       <div class="compare" data-reveal style="transition-delay:.12s">
@@ -413,31 +470,7 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:
     </div>
   </section>
 
-  <section class="section outside" aria-labelledby="outside-title">
-    <div class="wrap">
-      <div data-reveal>
-        <h2 id="outside-title">Take it outside.</h2>
-        <p>No gym membership, no commute, no leaderboard to chase. Just you, your pack and the path ahead. Rucking gets you walking outdoors, where fresh air and time in nature can help you clear your head while you build your fitness.</p>
-      </div>
-      <figure class="scene" data-reveal style="transition-delay:.12s">
-        <svg viewBox="0 0 560 340" role="img" aria-label="A trail winding over hills toward a rising sun">
-          <defs>
-            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#161311"/><stop offset=".62" stop-color="#3A1F0C"/><stop offset="1" stop-color="#7A3A0A"/></linearGradient>
-            <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#F8A145" stop-opacity=".55"/><stop offset="1" stop-color="#F8A145" stop-opacity="0"/></radialGradient>
-            <linearGradient id="trailG" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#F8A145"/><stop offset="1" stop-color="#F8A145" stop-opacity=".25"/></linearGradient>
-          </defs>
-          <rect width="560" height="340" fill="url(#sky)"/>
-          <g class="sun"><circle cx="372" cy="196" r="120" fill="url(#glow)"/><circle cx="372" cy="196" r="42" fill="#F8A145"/></g>
-          <path d="M0 214 C70 190 130 196 190 206 S300 182 360 196 S470 214 560 190 V340 H0 Z" fill="#4A2810"/>
-          <path d="M0 246 C90 222 170 236 250 228 S400 214 470 230 S540 238 560 232 V340 H0 Z" fill="#2E1F15"/>
-          <g fill="#1F1712"><path d="M92 236l9-24 9 24z"/><path d="M106 238l7-19 7 19z"/><path d="M430 226l10-26 10 26z"/><path d="M447 228l7-18 7 18z"/></g>
-          <path d="M0 286 C120 262 220 278 300 270 S470 258 560 268 V340 H0 Z" fill="#1A1512"/>
-          <path class="trail" pathLength="1" d="M226 340 C250 312 300 300 318 284 S300 258 330 246 S360 226 368 214" fill="none" stroke="url(#trailG)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1"/>
-          <g fill="#F8A145" opacity=".9"><circle cx="70" cy="70" r="1.4"/><circle cx="150" cy="40" r="1"/><circle cx="480" cy="56" r="1.2"/><circle cx="250" cy="88" r="1"/><circle cx="520" cy="110" r="1"/></g>
-        </svg>
-      </figure>
-    </div>
-  </section>
+  
 
   <section class="section alt" id="gear" aria-labelledby="gear-title">
     <div class="wrap">
@@ -584,6 +617,26 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:
       bar.querySelector("a").tabIndex = show ? 0 : -1;
     }, { passive: true });
   }
+})();
+</script>
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.jump a,.top nav a[href^="#"]'));
+  var ids=links.map(function(a){return a.getAttribute('href').slice(1)}).filter(function(v,i,l){return l.indexOf(v)===i});
+  var sections=ids.map(function(id){return document.getElementById(id)}).filter(Boolean);
+  if(!('IntersectionObserver' in window)||!sections.length)return;
+  var bar=document.querySelector('.jump');
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting)return;
+      links.forEach(function(a){
+        var on=a.getAttribute('href')==='#'+e.target.id;
+        a.classList.toggle('on',on);
+        if(on&&bar&&bar.contains(a)&&bar.scrollWidth>bar.clientWidth){bar.scrollTo({left:a.offsetLeft-16,behavior:'smooth'})}
+      });
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  sections.forEach(function(s){io.observe(s)});
 })();
 </script>
 </body>
